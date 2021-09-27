@@ -1,0 +1,22 @@
+{
+    "name": "codifyo/maker-bundle",
+    "keywords": ["symfony", "maker-bundle"],
+    "description": "Add the support of multi bundle app to symfony/maker-bundle",
+    "type": "library",
+    "require": {
+        "symfony/maker-bundle": "^1.0@dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Romain Valin",
+            "email": "contact@codifyo.com",
+            "homepage": "https://codifyo.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Codifyo\\MakerBundle\\": ""
+        }
+    }
+}
