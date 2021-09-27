@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Borh\MakerBundle;
+namespace Codifyo\MakerBundle;
 
 use Codifyo\MakerBundle\DependencyInjection\MakerCompilerPass;
 use Codifyo\MakerBundle\Maker\Maker\AbstractNoBundleMaker;

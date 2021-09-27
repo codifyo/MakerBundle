@@ -17,7 +17,7 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $rootNode = new TreeBuilder('borh_maker');
+        $rootNode = new TreeBuilder('codifyo_maker');
 
         return $rootNode;
     }

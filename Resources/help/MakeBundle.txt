@@ -1,5 +1,5 @@
 The <info>%command.name%</info> command generates a new bundle.
 
-<info>php %command.full_name% Borh:NewBundle</info>
+<info>php %command.full_name% Acme:NewBundle</info>
 
 If the argument is missing, the command will ask for the class name interactively.
