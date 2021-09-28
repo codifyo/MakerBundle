@@ -7,17 +7,4 @@ services:
       $configDir: "%kernel.project_dir%/config"
   Codifyo\MakerBundle\:
     resource: '../../*'
-    exclude: '../../{Entity,Migrations,Tests,Resources,Models,Model,Maker}'
-  Codifyo\MakerBundle\Maker\Maker\:
-    resource: '../../Maker/Maker/*'
-    tags:
-      - maker.command
-
-#  Symfony\Bundle\MakerBundle\EventRegistry: "@maker.event_registry"
-#  Symfony\Bundle\MakerBundle\Doctrine\DoctrineHelper: "@maker.doctrine_helper"
-#  Symfony\Bundle\MakerBundle\Renderer\FormTypeRenderer: "@maker.renderer.form_type_renderer"
-  Symfony\Bundle\MakerBundle\FileManager: "@maker.file_manager"
-  maker.generator:
-    class: Codifyo\MakerBundle\Generator\Generator
-    arguments:
-      1: 'App\'
+    exclude: '../../{Tests,Resources}'

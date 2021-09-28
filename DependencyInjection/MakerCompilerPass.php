@@ -2,6 +2,7 @@
 
 namespace Codifyo\MakerBundle\DependencyInjection;
 
+use Codifyo\MakerBundle\Generator\Generator;
 use Codifyo\MakerBundle\Maker\DecoratingMaker;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -24,6 +25,12 @@ class MakerCompilerPass implements CompilerPassInterface
                 $def->setDecoratedService($key);
                 $container->setDefinition('myrh.maker.decorating.'.$key, $def);
             }
+        }
+
+        $generator = 'maker.generator';
+        if ($container->hasDefinition($generator)) {
+            $generatorDef = $container->getDefinition($generator);
+            $generatorDef->setClass(Generator::class);
         }
     }
 }

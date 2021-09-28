@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class MakerBundle extends Bundle
+class CodifyoMakerBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {
