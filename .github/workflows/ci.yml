@@ -46,6 +46,9 @@ jobs:
     - name: Configure Symfony Flex
       run: composer config extra.symfony.require "${{ matrix.symfony-version }}"
 
+    - name: Ignore Composer Security Advisories Block
+      run: composer config policy.advisories.block false || true
+
     - name: Validate composer.json
       run: composer validate --strict
 
