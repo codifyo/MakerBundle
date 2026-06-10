@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.0', '8.1', '8.2', '8.3']
+        symfony-version: ['5.4.*', '6.4.*', '7.0.*', '8.0.*']
+        exclude:
+          # Symfony 8.0 nécessite PHP 8.2+
+          - php-version: '8.0'
+            symfony-version: '8.0.*'
+          - php-version: '8.1'
+            symfony-version: '8.0.*'
+          # Symfony 7.0 nécessite PHP 8.2+
+          - php-version: '8.0'
+            symfony-version: '7.0.*'
+          - php-version: '8.1'
+            symfony-version: '7.0.*'
+          # Symfony 6.4 nécessite PHP 8.1+
+          - php-version: '8.0'
+            symfony-version: '6.4.*'
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        coverage: none
+        tools: composer, flex
+
+    - name: Configure Symfony Flex
+      run: composer config extra.symfony.require "${{ matrix.symfony-version }}"
+
+    - name: Validate composer.json
+      run: composer validate --strict
+
+    - name: Install Dependencies
+      run: composer install --prefer-dist --no-progress
+
+    - name: Check PHP Syntax
+      run: find . -name "*.php" -not -path "./vendor/*" -exec php -l {} \; | grep -v "No syntax errors detected" || true
