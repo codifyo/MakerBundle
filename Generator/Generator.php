@@ -15,10 +15,31 @@ class Generator extends BaseGenerator
 
         try {
             $reflection = new \ReflectionClass(BaseGenerator::class);
+            
             if ($reflection->hasProperty('namespacePrefix')) {
                 $property = $reflection->getProperty('namespacePrefix');
                 $property->setAccessible(true);
-                $property->setValue($this, $namespacePrefix);
+                $current = $property->getValue($this);
+                if (!str_contains($current, trim($namespacePrefix, '\\'))) {
+                    $property->setValue($this, trim($current, '\\') . '\\' . $namespacePrefix);
+                }
+            }
+
+            if ($reflection->hasProperty('templateComponentGenerator')) {
+                $tcgProp = $reflection->getProperty('templateComponentGenerator');
+                $tcgProp->setAccessible(true);
+                $tcg = $tcgProp->getValue($this);
+                if ($tcg !== null) {
+                    $tcgRefl = new \ReflectionClass($tcg);
+                    if ($tcgRefl->hasProperty('rootNamespace')) {
+                        $rnProp = $tcgRefl->getProperty('rootNamespace');
+                        $rnProp->setAccessible(true);
+                        $current = $rnProp->getValue($tcg);
+                        if (!str_contains($current, trim($namespacePrefix, '\\'))) {
+                            $rnProp->setValue($tcg, trim($current, '\\') . '\\' . trim($namespacePrefix, '\\'));
+                        }
+                    }
+                }
             }
         } catch (\ReflectionException $e) {
             // Ignore
