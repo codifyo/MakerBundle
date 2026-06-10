@@ -12,13 +12,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['8.0', '8.1', '8.2', '8.3']
+        php-version: ['8.0', '8.1', '8.2', '8.3', '8.4']
         symfony-version: ['5.4.*', '6.4.*', '7.0.*', '8.0.*']
         exclude:
-          # Symfony 8.0 nécessite PHP 8.2+
+          # Symfony 8.0 nécessite PHP 8.4+
           - php-version: '8.0'
             symfony-version: '8.0.*'
           - php-version: '8.1'
+            symfony-version: '8.0.*'
+          - php-version: '8.2'
+            symfony-version: '8.0.*'
+          - php-version: '8.3'
             symfony-version: '8.0.*'
           # Symfony 7.0 nécessite PHP 8.2+
           - php-version: '8.0'
