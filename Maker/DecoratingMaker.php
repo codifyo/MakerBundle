@@ -53,7 +53,7 @@ class DecoratingMaker extends AbstractMaker
         $command->addArgument(
                 'bundle',
                 InputArgument::OPTIONAL,
-                sprintf('Choose the bundle where the command must be created (e.g. <fg=yellow>Acme:AcmeBundle</>)')
+                sprintf('Choose the bundle where the command must be created (e.g. <fg=yellow>AcmeBundle</>)')
             )
             ->addOption('no-bundle', null, InputOption::VALUE_NONE, 'Run maker without any bundle')
         ;
@@ -122,7 +122,7 @@ class DecoratingMaker extends AbstractMaker
         $bundle = trim($bundle);
 
         if (!array_key_exists($bundle, $this->bundles)) {
-            throw new \InvalidArgumentException(sprintf('Bundle %s does not exists', $bundle));
+            throw new \InvalidArgumentException(sprintf('Bundle %s does not exists. Available: %s', $bundle, implode(', ', array_keys($this->bundles))));
         }
 
         $bundleNamespace = $this->bundles[$bundle];
