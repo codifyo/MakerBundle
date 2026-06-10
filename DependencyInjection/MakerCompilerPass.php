@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 class MakerCompilerPass implements CompilerPassInterface
 {
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         $definitions = $container->findTaggedServiceIds('maker.command');
 

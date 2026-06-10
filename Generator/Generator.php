@@ -12,13 +12,19 @@ class Generator extends BaseGenerator
     public function setNamespacePrefix($namespacePrefix)
     {
         $this->namespacePrefix = $namespacePrefix;
-    }
-    public function createClassNameDetails(string $name, string $namespacePrefix, string $suffix = '', string $validationErrorMessage = ''): ClassNameDetails
-    {
-        $namespacePrefix = $this->namespacePrefix.$namespacePrefix;
 
-        return parent::createClassNameDetails($name, $namespacePrefix, $suffix, $validationErrorMessage);
+        try {
+            $reflection = new \ReflectionClass(BaseGenerator::class);
+            if ($reflection->hasProperty('namespacePrefix')) {
+                $property = $reflection->getProperty('namespacePrefix');
+                $property->setAccessible(true);
+                $property->setValue($this, $namespacePrefix);
+            }
+        } catch (\ReflectionException $e) {
+            // Ignore
+        }
     }
+
 
     /**
      * Generate a template file.

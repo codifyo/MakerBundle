@@ -39,12 +39,12 @@ class DecoratingMaker extends AbstractMaker
 
     public static function getCommandName(): string
     {
-        return self::$commandName;
+        return self::$commandName ?? 'make:decorated';
     }
 
     public static function getCommandDescription(): string
     {
-        return self::$commandDescription;
+        return self::$commandDescription ?? '';
     }
 
     public function configureCommand(Command $command, InputConfiguration $inputConfig)
@@ -71,6 +71,8 @@ class DecoratingMaker extends AbstractMaker
             $bundle = $io->askQuestion($question);
             $input->setArgument('bundle', $bundle);
         }
+
+        $this->maker->interact($input, $io, $command);
     }
 
     /**
