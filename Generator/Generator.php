@@ -21,7 +21,7 @@ class Generator extends BaseGenerator
                 $property->setAccessible(true);
                 $current = $property->getValue($this);
                 if (!str_contains($current, trim($namespacePrefix, '\\'))) {
-                    $property->setValue($this, trim($current, '\\') . '\\' . $namespacePrefix);
+                    $property->setValue($this, trim($current, '\\') . '\\' . trim($namespacePrefix, '\\'));
                 }
             }
 
