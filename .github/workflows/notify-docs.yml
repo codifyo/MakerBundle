@@ -1,0 +1,21 @@
+# Prévient codifyo-docs qu'il faut reconstruire le site quand docs/ ou README.md change.
+# Secret requis dans la lib : DOCS_DISPATCH_TOKEN (jeton à droits fins, « Contents: read & write » sur codifyo/codifyo-docs).
+name: Notify docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'README.md'
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl -sf -X POST \
+            -H "Authorization: Bearer ${{ secrets.DOCS_DISPATCH_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/codifyo/codifyo-docs/dispatches \
+            -d '{"event_type":"lib-docs-updated","client_payload":{"repo":"${{ github.repository }}"}}'
